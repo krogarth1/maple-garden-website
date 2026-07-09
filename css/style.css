@@ -279,14 +279,102 @@ p { margin: 0 0 1em; }
 .hero-leaf {
   position: absolute;
   opacity: 0.5;
+  z-index: 2;
 }
 .hero-leaf.one { top: -60px; right: -60px; width: 340px; }
 .hero-leaf.two { bottom: -80px; left: -80px; width: 300px; transform: rotate(20deg); }
 
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 720px;
+}
+
+/* ---------- Photography ---------- */
+.hero-media,
+.page-banner-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero::before,
+.page-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(250,246,238,0.92) 0%, rgba(250,246,238,0.8) 45%, rgba(250,246,238,0.94) 100%);
+  z-index: 1;
+}
+
+.card-photo {
+  width: calc(100% + 56px);
+  margin: -32px -28px 20px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: block;
+}
+
+.media-frame {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  display: block;
+}
+
+.ambience-banner {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  display: block;
+  margin: 0 0 2.5em;
+}
+
+.category-media {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.product-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  max-width: 480px;
+  margin: 20px 0 0;
+}
+.product-strip img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .card-photo { aspect-ratio: 16 / 10; }
 }
 
 .hero-badges {
@@ -633,10 +721,13 @@ section {
 
 /* ---------- Page banner (inner pages) ---------- */
 .page-banner {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--sage-100) 0%, var(--cream) 100%);
   padding: 64px 0 56px;
   text-align: center;
 }
+.page-banner .container { position: relative; z-index: 2; }
 .breadcrumb {
   font-size: 0.85rem;
   color: var(--ink-soft);
