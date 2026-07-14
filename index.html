@@ -69,17 +69,23 @@
 
 <header class="site-header">
   <div class="nav-wrap">
-    <a class="brand" href="index.html">
-      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="24" cy="24" r="23" fill="#e6ecdf"/>
-        <path d="M24 10c6 5 9 10 9 15a9 9 0 1 1-18 0c0-5 3-10 9-15Z" fill="#7c9473"/>
-        <path d="M24 14v22" stroke="#3f4d3a" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <span class="brand-text">
-        <strong>Maple Garden</strong>
-        <span>Skincare · Meditation · Wellbeing</span>
-      </span>
-    </a>
+    <div class="nav-left">
+      <a class="brand" href="index.html">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="23" fill="#e6ecdf"/>
+          <path d="M24 10c6 5 9 10 9 15a9 9 0 1 1-18 0c0-5 3-10 9-15Z" fill="#7c9473"/>
+          <path d="M24 14v22" stroke="#3f4d3a" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">
+          <strong>Maple Garden</strong>
+          <span>Skincare · Meditation · Wellbeing</span>
+        </span>
+      </a>
+      <a class="header-rating" id="header-rating" href="https://www.google.com/maps/search/?api=1&query=Maple%20Garden%20Skincare%2C%20Meditation%20%26%20Wellbeing&query_place_id=ChIJPUUzaPCve0gRNIxGLjYTn_4" target="_blank" rel="noopener" aria-label="Read our Google reviews">
+        <svg class="google-g" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A11.98 11.98 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A21.99 21.99 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+        <span id="header-rating-body">Google Reviews</span>
+      </a>
+    </div>
     <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -207,23 +213,34 @@
           <span class="rating-copy">Reviews from Google</span>
         </div>
       </div>
-      <div class="grid grid-3" id="reviews-grid">
-        <div class="testimonial">
-          <p>&ldquo;The meditation was a lovely ending to the treatment. I was so relaxed throughout the massage that I really switched off.&rdquo;</p>
-          <p class="testimonial-name">&mdash; Stacey</p>
+      <div class="reviews-carousel" id="reviews-carousel">
+        <div class="reviews-viewport">
+          <div class="reviews-track" id="reviews-grid">
+            <div class="testimonial">
+              <p>&ldquo;The meditation was a lovely ending to the treatment. I was so relaxed throughout the massage that I really switched off.&rdquo;</p>
+              <p class="testimonial-name">&mdash; Stacey</p>
+            </div>
+            <div class="testimonial">
+              <p>&ldquo;The Maple Garden is such a nice space. The room is cosy, and the garden is peaceful and pretty.&rdquo;</p>
+              <p class="testimonial-name">&mdash; Claire</p>
+            </div>
+            <div class="testimonial">
+              <p>&ldquo;I recently had the Moment of Calm Massage with Andrea and absolutely loved it. The meditation was amazing.&rdquo;</p>
+              <p class="testimonial-name">&mdash; Sarah</p>
+            </div>
+          </div>
         </div>
-        <div class="testimonial">
-          <p>&ldquo;The Maple Garden is such a nice space. The room is cosy, and the garden is peaceful and pretty.&rdquo;</p>
-          <p class="testimonial-name">&mdash; Claire</p>
-        </div>
-        <div class="testimonial">
-          <p>&ldquo;I recently had the Moment of Calm Massage with Andrea and absolutely loved it. The meditation was amazing.&rdquo;</p>
-          <p class="testimonial-name">&mdash; Sarah</p>
-        </div>
+        <button class="carousel-nav prev" id="reviews-prev" type="button" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="carousel-nav next" id="reviews-next" type="button" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="carousel-dots" id="reviews-dots" role="tablist" aria-label="Choose review"></div>
       </div>
       <div class="cta-row" style="justify-content:center; margin-top:2.4em;">
         <a class="btn btn-light" href="https://search.google.com/local/writereview?placeid=ChIJPUUzaPCve0gRNIxGLjYTn_4" target="_blank" rel="noopener">Leave us a review</a>
-        <a class="btn btn-outline" style="border-color:#fff; color:#fff;" href="https://www.google.com/maps/place/?q=place_id:ChIJPUUzaPCve0gRNIxGLjYTn_4" target="_blank" rel="noopener">See all reviews on Google</a>
+        <a class="btn btn-outline" style="border-color:#fff; color:#fff;" id="see-all-reviews-link" href="https://www.google.com/maps/search/?api=1&query=Maple%20Garden%20Skincare%2C%20Meditation%20%26%20Wellbeing&query_place_id=ChIJPUUzaPCve0gRNIxGLjYTn_4" target="_blank" rel="noopener">See all reviews on Google</a>
       </div>
     </div>
   </section>

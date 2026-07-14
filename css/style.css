@@ -206,6 +206,39 @@ p { margin: 0 0 1em; }
   color: var(--terracotta-dark);
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.header-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--sage-100);
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sage-900);
+  transition: background 0.15s ease;
+}
+.header-rating:hover { background: var(--sage-300); }
+.header-rating .google-g { flex-shrink: 0; }
+.header-rating .stars { display: inline-flex; gap: 1px; }
+.header-rating-count { color: var(--ink-soft); font-weight: 500; }
+
+@media (max-width: 960px) {
+  .header-rating-count { display: none; }
+}
+@media (max-width: 640px) {
+  .header-rating { display: none; }
+}
+
 .main-nav {
   display: flex;
   align-items: center;
@@ -557,6 +590,62 @@ section {
   font-size: 0.9rem;
   color: #d9e2d1;
 }
+
+/* ---------- Reviews carousel ---------- */
+.reviews-carousel {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.reviews-viewport {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.reviews-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.reviews-track .testimonial {
+  flex: 0 0 100%;
+}
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sage-900);
+  z-index: 2;
+}
+.carousel-nav:hover { background: var(--sage-100); }
+.carousel-nav.prev { left: -20px; }
+.carousel-nav.next { right: -20px; }
+.carousel-nav svg { width: 18px; height: 18px; }
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+.carousel-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+.carousel-dot.active { background: #fff; }
 
 /* ---------- Timeline (About) ---------- */
 .story-block {
