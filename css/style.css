@@ -13,7 +13,8 @@
   --cream: #faf6ee;
   --cream-dark: #f0e6d2;
   --terracotta: #bf7a51;
-  --terracotta-dark: #a8613b;
+  --terracotta-dark: #8e5232;
+  --terracotta-darker: #6f3f26;
   --ink: #362f27;
   --ink-soft: #5c5347;
   --gold: #c8a15b;
@@ -129,11 +130,11 @@ p { margin: 0 0 1em; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
-  background: var(--terracotta);
+  background: var(--terracotta-dark);
   color: #fff;
   box-shadow: var(--shadow-soft);
 }
-.btn-primary:hover { background: var(--terracotta-dark); }
+.btn-primary:hover { background: var(--terracotta-darker); }
 
 .btn-outline {
   background: transparent;
@@ -183,7 +184,7 @@ p { margin: 0 0 1em; }
 
 .brand-mark {
   width: 42px;
-  height: 42px;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -345,6 +346,7 @@ p { margin: 0 0 1em; }
 
 .card-photo {
   width: calc(100% + 56px);
+  height: auto;
   margin: -32px -28px 20px;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -363,7 +365,8 @@ p { margin: 0 0 1em; }
 
 .gallery-photo {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
   object-fit: cover;
@@ -372,6 +375,7 @@ p { margin: 0 0 1em; }
 
 .ambience-banner {
   width: 100%;
+  height: auto;
   aspect-ratio: 21 / 9;
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
@@ -382,6 +386,7 @@ p { margin: 0 0 1em; }
 
 .category-media {
   width: 100%;
+  height: auto;
   aspect-ratio: 21 / 9;
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
@@ -399,6 +404,7 @@ p { margin: 0 0 1em; }
 }
 .product-strip img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
@@ -637,15 +643,25 @@ section {
   margin-top: 22px;
 }
 .carousel-dot {
-  width: 9px;
-  height: 9px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.35);
+  background: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.carousel-dot.active { background: #fff; }
+.carousel-dot::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+.carousel-dot.active::before { background: #fff; }
 
 /* ---------- Timeline (About) ---------- */
 .story-block {
@@ -803,7 +819,7 @@ section {
 @media (max-width: 700px) {
   .footer-grid { grid-template-columns: 1fr; }
 }
-.site-footer h4 {
+.site-footer h3 {
   color: #fff;
   font-size: 1rem;
   text-transform: uppercase;

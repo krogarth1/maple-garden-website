@@ -12,7 +12,8 @@ contact.html                Contact details + booking enquiry form
 404.html                   Custom not-found page
 css/style.css               All styling (sage/cream/terracotta palette)
 js/script.js                 Mobile nav toggle only
-images/favicon.svg          Leaf logo mark / favicon
+images/favicon.png, apple-touch-icon.png, og-cover.jpg   Generated from images/raw/logo/logo.jpg via scripts/build-logo-assets.js
+images/logo/brand-icon.webp  Icon-only crop of the logo, used in the header
 robots.txt, sitemap.xml     SEO crawling files
 ```
 
@@ -31,11 +32,9 @@ A `.nojekyll` file sits in the repo root — GitHub Pages runs Jekyll by default
 ## Before going live — action items
 
 1. **Contact form**: the form on `contact.html` posts to `https://formsubmit.co/maplegardenwellbeing@gmail.com` (a free, no-signup form backend). The **first submission** triggers a confirmation email from FormSubmit to that inbox — click the activation link or all future messages will be silently dropped. Test it once after deploying.
-2. **Photos**: there are currently no photographs — all visuals are CSS/SVG only. Add real photos of the garden room, Andrea, and treatments to `images/` and reference them in the HTML (hero section, About page, treatment cards) for a stronger, more personal first impression and better engagement/SEO.
-3. **Exact address**: only "Urmston, Manchester, M41" is used throughout (matching what's public today) since the full street address wasn't available to me. Add it to the `PostalAddress` JSON-LD blocks in each page's `<head>` and to `contact.html` once you're happy publishing it — this meaningfully helps local SEO ("Urmston massage therapist" etc.) and Google Maps accuracy.
-4. **Custom domain**: see "Moving to the custom domain" above — canonical URLs, Open Graph tags and `sitemap.xml` currently point at the GitHub Pages URL, not `maplegardenwellbeing.co.uk`.
-5. **`images/og-cover.jpg`**: referenced by Open Graph/Twitter tags but not yet created — add a 1200×630px image (a nice photo of the garden room or a branded graphic) so shared links on Facebook/Instagram/WhatsApp show a preview image.
-6. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML.
+2. **Exact address**: only "Urmston, Manchester, M41" is used throughout (matching what's public today) since the full street address wasn't available to me. Add it to the `PostalAddress` JSON-LD blocks in each page's `<head>` and to `contact.html` once you're happy publishing it — this meaningfully helps local SEO ("Urmston massage therapist" etc.) and Google Maps accuracy.
+3. **Custom domain**: see "Moving to the custom domain" above — canonical URLs, Open Graph tags and `sitemap.xml` currently point at the GitHub Pages URL, not `maplegardenwellbeing.co.uk`.
+4. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML.
 
 ## SEO already built in
 

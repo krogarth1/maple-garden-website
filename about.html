@@ -16,7 +16,8 @@
 <meta property="og:image" content="https://krogarth1.github.io/maple-garden-website/images/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,11 +50,7 @@
   <div class="nav-wrap">
     <div class="nav-left">
       <a class="brand" href="index.html">
-        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="24" cy="24" r="23" fill="#e6ecdf"/>
-          <path d="M24 10c6 5 9 10 9 15a9 9 0 1 1-18 0c0-5 3-10 9-15Z" fill="#7c9473"/>
-          <path d="M24 14v22" stroke="#3f4d3a" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
+        <img class="brand-mark" src="images/logo/brand-icon.webp" alt="" width="42" height="37">
         <span class="brand-text">
           <strong>Maple Garden</strong>
           <span>Skincare · Meditation · Wellbeing</span>
@@ -81,8 +78,8 @@
 
   <section class="page-banner">
     <picture>
-      <source srcset="images/andrea/andrea-room-longshot.webp" type="image/webp">
-      <img class="page-banner-media" src="images/andrea/andrea-room-longshot.jpg" width="800" height="1000" alt="Andrea McConville standing outside the Maple Garden treatment room in Urmston" fetchpriority="high">
+      <source type="image/webp" sizes="100vw" srcset="images/andrea/andrea-room-longshot-640w.webp 640w, images/andrea/andrea-room-longshot-960w.webp 960w, images/andrea/andrea-room-longshot-1280w.webp 1280w, images/andrea/andrea-room-longshot.webp 1920w">
+      <img class="page-banner-media" src="images/andrea/andrea-room-longshot.jpg" width="1920" height="2400" alt="Andrea McConville standing outside the Maple Garden treatment room in Urmston" fetchpriority="high">
     </picture>
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Home</a> / About</p>
@@ -95,15 +92,15 @@
     <div class="container">
       <div class="story-block">
         <div>
-          <p class="eyebrow">Andrea&rsquo;s Story</p>
+          <p class="eyebrow">My Story</p>
           <h2>Finding calm through the hardest of times</h2>
-          <p>In 2021, 31 weeks into her pregnancy, Andrea McConville was diagnosed with triple negative breast cancer. She underwent chemotherapy, surgery and radiotherapy while caring for her newborn son, Freddie &mdash; one of the most demanding periods anyone could face.</p>
-          <p>Throughout her treatment, meditation became her anchor. It was the tool she turned to whenever anxiety crept in, or when a particularly difficult day lay ahead. That experience didn&rsquo;t just help her through &mdash; it changed the direction of her life.</p>
-          <p>Determined to understand meditation more deeply and share its benefits with others, Andrea trained formally as a meditation teacher and therapist. Maple Garden Skincare, Meditation &amp; Wellbeing was born from that journey: a private garden room in Urmston where massage, skincare and mindful breathing come together to help others find the same sense of calm that carried her through.</p>
+          <p>In 2021, 31 weeks into my pregnancy, I was diagnosed with triple negative breast cancer. I underwent chemotherapy, surgery and radiotherapy while caring for my newborn son, Freddie &mdash; one of the most demanding periods I&rsquo;ve ever faced.</p>
+          <p>Throughout my treatment, meditation became my anchor. It was the tool I turned to whenever anxiety crept in, or when a particularly difficult day lay ahead. That experience didn&rsquo;t just help me through &mdash; it changed the direction of my life.</p>
+          <p>Determined to understand meditation more deeply and share its benefits with others, I trained formally as a meditation teacher and therapist. Maple Garden Skincare, Meditation &amp; Wellbeing was born from that journey: a private garden room in Urmston where massage, skincare and mindful breathing come together to help others find the same sense of calm that carried me through.</p>
         </div>
         <div>
           <picture>
-            <source srcset="images/andrea/andrea-room-closeup.webp" type="image/webp">
+            <source type="image/webp" sizes="(max-width: 860px) 100vw, 50vw" srcset="images/andrea/andrea-room-closeup-400w.webp 400w, images/andrea/andrea-room-closeup.webp 800w">
             <img class="media-frame" src="images/andrea/andrea-room-closeup.jpg" width="800" height="1202" alt="A close-up portrait of Andrea McConville smiling outside the garden room" loading="lazy" style="margin-bottom:24px;">
           </picture>
           <div class="quote-panel">
@@ -165,8 +162,8 @@
         <p class="lede" style="margin:0 auto;">Every treatment at Maple Garden &mdash; whether it&rsquo;s a facial, a full body massage, or a dedicated meditation session &mdash; carries the same intention: to give you permission to slow down, breathe, and be present, even if just for an hour.</p>
       </div>
       <picture>
-        <source srcset="images/space/room-interior-bed-lamp.webp" type="image/webp">
-        <img class="ambience-banner" src="images/space/room-interior-bed-lamp.jpg" width="800" height="533" alt="The treatment couch glowing under lamplight in Maple Garden's private garden room, set up ready for a relaxing treatment" loading="lazy" style="margin:0 auto;max-width:900px;">
+        <source srcset="images/space/interior-update.webp" type="image/webp">
+        <img class="ambience-banner" src="images/space/interior-update.jpg" width="800" height="1055" alt="A cosy corner of the Maple Garden treatment room, with a round mirror, candles and garden views through the window" loading="lazy" style="margin:0 auto;max-width:900px;">
       </picture>
     </div>
   </section>
@@ -187,7 +184,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>Maple Garden</h4>
+        <h3>Maple Garden</h3>
         <p>Skincare, meditation &amp; massage therapy in a private garden room in Urmston, Greater Manchester.</p>
         <div class="social-row">
           <a href="https://www.instagram.com/AndreaMc_Wellbeing" aria-label="Instagram" target="_blank" rel="noopener">
@@ -199,7 +196,7 @@
         </div>
       </div>
       <div>
-        <h4>Explore</h4>
+        <h3>Explore</h3>
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="treatments-services.html">Treatments &amp; Services</a></li>
@@ -208,7 +205,7 @@
         </ul>
       </div>
       <div>
-        <h4>Get in touch</h4>
+        <h3>Get in touch</h3>
         <ul class="footer-links">
           <li><a href="tel:07814472852">07814 472852</a></li>
           <li><a href="mailto:maplegardenwellbeing@gmail.com">maplegardenwellbeing@gmail.com</a></li>

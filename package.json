@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lighthouse": "CHROME_PATH=$(node -e \"const fs=require('fs'),path=require('path'),os=require('os');const d=path.join(os.homedir(),'.cache/puppeteer/chrome');const v=fs.readdirSync(d).find(n=>n.startsWith('linux-'));console.log(path.join(d,v,'chrome-linux64','chrome'))\") lhci autorun"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "puppeteer": "^25.3.0"
   }
 }

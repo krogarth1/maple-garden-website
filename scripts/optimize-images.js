@@ -18,6 +18,24 @@ const JPEG_QUALITY_FLOOR = 50;
 
 const FOLDERS = ['hero', 'treatments', 'andrea', 'products', 'space'];
 
+// Images that fill the viewport width (full-bleed hero/page banners) get extra
+// smaller WebP variants for a `srcset`, so a phone doesn't download the 1920px
+// master. Every image in the `hero` folder qualifies; `FULL_BLEED_OVERRIDES`
+// covers full-bleed banners that live in a subject folder (e.g. about.html's
+// page banner is stored under `andrea/` since it's a photo of Andrea, not
+// under `hero/`) — these also get promoted to HERO_MAX_WIDTH.
+const FULL_BLEED_OVERRIDES = new Set(['andrea/andrea-room-longshot']);
+const FULL_BLEED_SRCSET_WIDTHS = [640, 960, 1280];
+
+// Images rendered at ~50% of the container width (the `.media-frame` class)
+// get one extra smaller variant so a phone isn't served the full 800px master.
+const MEDIA_FRAME_OVERRIDES = new Set([
+  'treatments/treament-hotstone-relaxed',
+  'andrea/andrea-coffee',
+  'andrea/andrea-room-closeup',
+]);
+const MEDIA_FRAME_SRCSET_WIDTH = 400;
+
 function fmtKB(bytes) {
   return (bytes / 1024).toFixed(0) + 'KB';
 }
@@ -39,11 +57,20 @@ async function encodeUnderTarget(pipeline, format) {
   return last; // best effort at floor quality
 }
 
+async function processSrcsetWidth(srcPath, outDir, base, width) {
+  const resized = sharp(srcPath).resize({ width, withoutEnlargement: true, fit: 'inside' });
+  const webp = await encodeUnderTarget(resized, 'webp');
+  fs.writeFileSync(path.join(outDir, `${base}-${width}w.webp`), webp.buf);
+  return { width, size: webp.buf.length };
+}
+
 async function processImage(folder, filename) {
   const srcPath = path.join(RAW_DIR, folder, filename);
   const originalSize = fs.statSync(srcPath).size;
-  const maxWidth = folder === 'hero' ? HERO_MAX_WIDTH : DEFAULT_MAX_WIDTH;
   const base = path.parse(filename).name;
+  const key = `${folder}/${base}`;
+  const isFullBleed = folder === 'hero' || FULL_BLEED_OVERRIDES.has(key);
+  const maxWidth = isFullBleed ? HERO_MAX_WIDTH : DEFAULT_MAX_WIDTH;
 
   const resized = sharp(srcPath).resize({
     width: maxWidth,
@@ -62,6 +89,15 @@ async function processImage(folder, filename) {
   fs.writeFileSync(webpPath, webp.buf);
   fs.writeFileSync(jpegPath, jpeg.buf);
 
+  const srcset = [];
+  if (isFullBleed) {
+    for (const width of FULL_BLEED_SRCSET_WIDTHS) {
+      srcset.push(await processSrcsetWidth(srcPath, outDir, base, width));
+    }
+  } else if (MEDIA_FRAME_OVERRIDES.has(key)) {
+    srcset.push(await processSrcsetWidth(srcPath, outDir, base, MEDIA_FRAME_SRCSET_WIDTH));
+  }
+
   return {
     folder,
     filename,
@@ -72,6 +108,7 @@ async function processImage(folder, filename) {
     webpQuality: webp.quality,
     jpegSize: jpeg.buf.length,
     jpegQuality: jpeg.quality,
+    srcset,
   };
 }
 
@@ -85,8 +122,11 @@ async function main() {
       const r = await processImage(folder, file);
       results.push(r);
       const flagWebp = r.webpSize > TARGET_BYTES ? '  [!] over target' : '';
+      const srcsetNote = r.srcset.length
+        ? '  +srcset ' + r.srcset.map((s) => `${s.width}w:${fmtKB(s.size)}`).join(', ')
+        : '';
       console.log(
-        `${r.folder}/${file}: ${fmtKB(r.originalSize)} -> webp ${fmtKB(r.webpSize)} (q${r.webpQuality}), jpg ${fmtKB(r.jpegSize)} (q${r.jpegQuality})${flagWebp}`
+        `${r.folder}/${file}: ${fmtKB(r.originalSize)} -> webp ${fmtKB(r.webpSize)} (q${r.webpQuality}), jpg ${fmtKB(r.jpegSize)} (q${r.jpegQuality})${flagWebp}${srcsetNote}`
       );
     }
   }
