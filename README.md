@@ -32,9 +32,8 @@ A `.nojekyll` file sits in the repo root — GitHub Pages runs Jekyll by default
 ## Before going live — action items
 
 1. **Contact form**: the form on `contact.html` posts to `https://formsubmit.co/maplegardenwellbeing@gmail.com` (a free, no-signup form backend). The **first submission** triggers a confirmation email from FormSubmit to that inbox — click the activation link or all future messages will be silently dropped. Test it once after deploying.
-2. **Exact address**: only "Urmston, Manchester, M41" is used throughout (matching what's public today) since the full street address wasn't available to me. Add it to the `PostalAddress` JSON-LD blocks in each page's `<head>` and to `contact.html` once you're happy publishing it — this meaningfully helps local SEO ("Urmston massage therapist" etc.) and Google Maps accuracy.
-3. **Custom domain**: see "Moving to the custom domain" above — canonical URLs, Open Graph tags and `sitemap.xml` currently point at the GitHub Pages URL, not `maplegardenwellbeing.co.uk`.
-4. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML.
+2. **Custom domain**: see "Moving to the custom domain" above — canonical URLs, Open Graph tags and `sitemap.xml` currently point at the GitHub Pages URL, not `maplegardenwellbeing.co.uk`.
+3. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML.
 
 ## SEO already built in
 
