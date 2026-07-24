@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://krogarth1.github.io/maple-garden-website/sitemap.xml
+Sitemap: https://www.maplegardenwellbeing.co.uk/sitemap.xml
