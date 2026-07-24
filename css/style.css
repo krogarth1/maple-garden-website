@@ -264,6 +264,7 @@ p { margin: 0 0 1em; }
 
 .main-nav .btn {
   margin-left: 8px;
+  color: #fff;
 }
 
 .nav-toggle {
@@ -768,15 +769,15 @@ section {
 .social-row a {
   width: 42px; height: 42px;
   border-radius: 50%;
-  background: var(--sage-100);
+  background: var(--terracotta-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--sage-900);
+  color: #fff;
   text-decoration: none;
   transition: background 0.15s ease, color 0.15s ease;
 }
-.social-row a:hover { background: var(--sage-900); color: #fff; }
+.social-row a:hover { background: var(--terracotta-darker); color: #fff; }
 .social-row svg { width: 20px; height: 20px; }
 
 /* Form */
