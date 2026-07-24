@@ -543,6 +543,14 @@ section {
   max-width: 68ch;
 }
 
+.treatment-upgrade {
+  grid-column: 1 / -1;
+  color: var(--terracotta-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 2px 0 0;
+}
+
 .deposit-note {
   background: var(--cream-dark);
   border-left: 4px solid var(--terracotta);
@@ -731,6 +739,16 @@ section {
 }
 .contact-detail h3 { margin-bottom: 2px; }
 .contact-detail a, .contact-detail p { color: var(--ink-soft); margin: 0; }
+
+.hours-list { list-style: none; margin: 0; padding: 0; }
+.hours-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 3px 0;
+  color: var(--ink-soft);
+}
+.hours-list li span:first-child { color: var(--ink); font-weight: 500; }
 
 .map-embed {
   border-radius: var(--radius);
