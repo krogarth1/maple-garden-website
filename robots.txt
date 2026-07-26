@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.maplegardenwellbeing.co.uk/sitemap.xml
+Sitemap: https://maplegardenwellbeing.co.uk/sitemap.xml
