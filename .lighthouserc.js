@@ -14,11 +14,7 @@ module.exports = {
         'categories:performance': ['warn', {minScore: 0.9}],
         'categories:accessibility': ['error', {minScore: 0.9}],
         'categories:best-practices': ['error', {minScore: 0.9}],
-        // SEO category and is-crawlable are disabled because every page carries an
-        // intentional `noindex, nofollow` meta tag while the site is pre-launch (see
-        // README "Before going live"). Re-enable both once that tag is removed.
-        'categories:seo': 'off',
-        'is-crawlable': 'off',
+        'categories:seo': ['error', {minScore: 0.9}],
         // bf-cache behaves inconsistently under headless Chrome in CI.
         'bf-cache': 'off',
         // These are "further savings possible" opportunities, not correctness bugs —
