@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lighthouse": "CHROME_PATH=$(node -e \"const fs=require('fs'),path=require('path'),os=require('os');const d=path.join(os.homedir(),'.cache/puppeteer/chrome');const v=fs.readdirSync(d).find(n=>n.startsWith('linux-'));console.log(path.join(d,v,'chrome-linux64','chrome'))\") lhci autorun"
+    "lighthouse": "CHROME_PATH=$(node -e \"const fs=require('fs'),path=require('path'),os=require('os');const d=path.join(os.homedir(),'.cache/puppeteer/chrome');const v=fs.readdirSync(d).find(n=>n.startsWith('linux-'));console.log(path.join(d,v,'chrome-linux64','chrome'))\") lhci autorun",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
-    "puppeteer": "^25.3.0"
+    "puppeteer": "^25.3.0",
+    "wrangler": "^4.114.0"
   }
 }
