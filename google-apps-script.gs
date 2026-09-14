@@ -43,14 +43,15 @@ function doPost(e) {
     });
   }
 
-  // Apps Script web app responses render inside a script.googleusercontent.com
-  // iframe wrapped by a script.google.com page. A plain window.location.href
-  // redirect only escapes the iframe, leaving the script.google.com URL in
-  // the address bar — window.top.location.href breaks out to the real top
-  // frame so the visitor actually lands on contact.html?sent=1.
+  // contact.html submits via fetch() in the background and never navigates
+  // here, so this response is normally invisible to visitors. It only shows
+  // up if JS is disabled and the browser falls back to a real form POST —
+  // in that case, an automatic redirect can't escape Apps Script's sandboxed
+  // response iframe (it only allows top-level navigation from a direct user
+  // click), so this gives a manual link instead of leaving people stuck.
   return HtmlService.createHtmlOutput(
-    '<script>window.top.location.href="https://maplegardenwellbeing.co.uk/contact.html?sent=1";</script>' +
-    'Thank you — redirecting...'
+    'Thank you — your enquiry has been sent.<br>' +
+    '<a href="https://maplegardenwellbeing.co.uk/contact.html?sent=1" target="_top">Return to the site</a>'
   );
 }
 

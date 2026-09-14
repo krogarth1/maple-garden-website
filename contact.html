@@ -164,7 +164,9 @@
             <h2 style="margin-bottom:0.3em;">Send a Message</h2>
             <p class="lede" style="margin-bottom:1.5em;">Tell us which treatment you&rsquo;re interested in and a few dates/times that suit you &mdash; we&rsquo;ll reply to confirm availability.</p>
 
-            <form action="https://script.google.com/macros/s/AKfycbxH6djVr_KEB7ImtuMimp7PTrhGvmfgdL4LAFiNVX00KxjeKawfoggqAPgr5vUrMr5m/exec" method="POST">
+            <p id="form-error" class="form-note" style="color:#b3261e;" hidden>Sorry, something went wrong sending your message. Please try again, or contact us directly by phone or email.</p>
+
+            <form id="contact-form" action="https://script.google.com/macros/s/AKfycbxH6djVr_KEB7ImtuMimp7PTrhGvmfgdL4LAFiNVX00KxjeKawfoggqAPgr5vUrMr5m/exec" method="POST">
               <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
               <div class="field">
@@ -217,6 +219,31 @@
               document.getElementById("form-wrap").hidden = true;
               document.getElementById("form-success").hidden = false;
             }
+
+            // Submit in the background instead of navigating to the Apps Script
+            // URL: a full-page POST there gets stuck inside Google's sandboxed
+            // response iframe (it can only escape to the top frame on a direct
+            // user click, not an automatic redirect) and shows Google's
+            // unverified-app banner. A fetch() means the visitor never leaves
+            // this page or sees that URL at all.
+            (function () {
+              var form = document.getElementById("contact-form");
+              var errorEl = document.getElementById("form-error");
+              form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                errorEl.hidden = true;
+                var button = form.querySelector("button[type=submit]");
+                button.disabled = true;
+                fetch(form.action, { method: "POST", mode: "no-cors", body: new FormData(form) })
+                  .then(function () {
+                    location.href = "contact.html?sent=1";
+                  })
+                  .catch(function () {
+                    errorEl.hidden = false;
+                    button.disabled = false;
+                  });
+              });
+            })();
           </script>
         </div>
 
