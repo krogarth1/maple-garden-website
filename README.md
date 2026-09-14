@@ -19,21 +19,16 @@ robots.txt, sitemap.xml     SEO crawling files
 
 ## Hosting
 
-Currently deployed on **GitHub Pages** at `https://krogarth1.github.io/maple-garden-website/`, built automatically from the `main` branch of https://github.com/krogarth1/maple-garden-website. Push to `main` and the live site updates within a minute or two.
+Live on **Cloudflare Pages** at `https://maplegardenwellbeing.co.uk/`, deployed automatically from the `main` branch of https://github.com/krogarth1/maple-garden-website via Cloudflare's Git integration. Push to `main` and the live site updates within a minute or two.
 
-A `.nojekyll` file sits in the repo root — GitHub Pages runs Jekyll by default, which ignores files/folders starting with `_` and can interfere with a plain static site; `.nojekyll` disables that processing.
+`.assetsignore` in the repo root tells Cloudflare Pages which files to exclude from the deploy bundle (`node_modules`, `.git`, `package.json`, etc. — see that file for the full list).
 
-### Moving to the custom domain (maplegardenwellbeing.co.uk) later
-
-1. In the repo on github.com: **Settings → Pages → Custom domain**, enter `www.maplegardenwellbeing.co.uk` (this creates a `CNAME` file in the repo for you — or add one manually with that single line).
-2. At your domain registrar, add a `CNAME` record for `www` pointing to `krogarth1.github.io`, and either an `A`/`ALIAS` record for the root domain to GitHub's Pages IPs (see GitHub's docs) or a redirect from the root to `www`.
-3. **Important**: once the custom domain is live, run a find-and-replace across all `.html`, `robots.txt`, and `sitemap.xml` swapping `https://krogarth1.github.io/maple-garden-website/` back to `https://www.maplegardenwellbeing.co.uk/` — the canonical/Open Graph/JSON-LD tags currently point at the GitHub Pages URL since that's what's actually serving the content today.
+GitHub Pages was used for the initial build only, before the custom domain and Cloudflare setup were in place, and has since been disabled in the repo's Settings → Pages. The `.nojekyll` file is a harmless leftover from that period (it disabled GitHub's Jekyll processing) and isn't needed by Cloudflare Pages, but doesn't hurt anything by staying.
 
 ## Before going live — action items
 
 1. **Contact form**: the form on `contact.html` posts to `https://formsubmit.co/maplegardenwellbeing@gmail.com` (a free, no-signup form backend). The **first submission** triggers a confirmation email from FormSubmit to that inbox — click the activation link or all future messages will be silently dropped. Test it once after deploying.
-2. **Custom domain**: see "Moving to the custom domain" above — canonical URLs, Open Graph tags and `sitemap.xml` currently point at the GitHub Pages URL, not `maplegardenwellbeing.co.uk`.
-3. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML.
+2. **Google Reviews widget**: the "What clients say on Google" section on `index.html` pulls live reviews via `js/google-reviews.js`, which calls the Google Places API (New). Set `GOOGLE_PLACES_API_KEY` at the top of that file to a Google Cloud API key with the Places API (New) enabled and restricted (HTTP referrers) to this site's domain(s). The Place ID is already set to `ChIJPUUzaPCve0gRNIxGLjYTn_4` (Maple Garden Skincare, Meditation & Wellbeing). Until a key is added, the section falls back to the three static testimonials already in the HTML. **Note**: a key is already committed in the file — since this repo is public, double-check in Google Cloud Console that it's actually referrer-restricted to this site's domain(s), not just relying on obscurity.
 
 ## SEO already built in
 
