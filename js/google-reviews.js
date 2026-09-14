@@ -1,10 +1,11 @@
-/* Live Google Reviews, powered by the Places API (New).
+/* Live Google Reviews, powered by the Places API (New) via the
+   /api/google-reviews Cloudflare Pages Function (functions/api/google-reviews.js),
+   which holds the API key server-side.
    Runs on every page (header rating badge) and additionally fills in
    #reviews-summary and the review carousel on index.html.
-   If GOOGLE_PLACES_API_KEY isn't set (or the request fails), the static
-   fallback content already in the HTML is left untouched. */
+   If the request fails, the static fallback content already in the HTML
+   is left untouched. */
 (function () {
-  var GOOGLE_PLACES_API_KEY = "AIzaSyDh1YcdcoNTHTR1q059H5xivCMrnKL9NNM";
   var PLACE_ID = "ChIJPUUzaPCve0gRNIxGLjYTn_4"; // Maple Garden Skincare, Meditation & Wellbeing
   var PLACE_NAME = "Maple Garden Skincare, Meditation & Wellbeing";
 
@@ -135,21 +136,9 @@
   if (seeAllLink) seeAllLink.href = FALLBACK_MAPS_URL;
   if (headerBadge) headerBadge.href = FALLBACK_MAPS_URL;
 
-  if (!GOOGLE_PLACES_API_KEY || GOOGLE_PLACES_API_KEY === "YOUR_API_KEY_HERE") {
-    console.info("Google Reviews widget: add a Places API key in js/google-reviews.js to show live reviews. Showing static fallback for now.");
-    return;
-  }
-
   var summaryEl = document.getElementById("reviews-summary");
 
-  var url = "https://places.googleapis.com/v1/places/" + PLACE_ID;
-
-  fetch(url, {
-    headers: {
-      "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
-      "X-Goog-FieldMask": "rating,userRatingCount,reviews,googleMapsUri"
-    }
-  })
+  fetch("/api/google-reviews")
     .then(function (res) {
       if (!res.ok) throw new Error("Places API request failed: " + res.status);
       return res.json();
