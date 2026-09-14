@@ -1,6 +1,6 @@
-/* Live Google Reviews, powered by the Places API (New) via the
-   /api/google-reviews Cloudflare Pages Function (functions/api/google-reviews.js),
-   which holds the API key server-side.
+/* Live Google Reviews, powered by the Places API (New) via /api/google-reviews,
+   handled by the Cloudflare Worker (src/worker.js), which holds the API key
+   server-side.
    Runs on every page (header rating badge) and additionally fills in
    #reviews-summary and the review carousel on index.html.
    If the request fails, the static fallback content already in the HTML

@@ -1,21 +1,30 @@
-// Cloudflare Pages Function — proxies the Google Places API (New) "place
-// details" request server-side so GOOGLE_PLACES_API_KEY never reaches the
-// browser. Set GOOGLE_PLACES_API_KEY as a secret in the Cloudflare Pages
-// dashboard (Settings -> Environment variables) for this to work.
-//
-// Route: GET /api/google-reviews
+// Worker entry point for Workers Builds (git-connected deploy of this repo).
+// Handles /api/google-reviews itself; everything else falls through to the
+// static assets binding (the plain HTML/CSS/JS site).
 
 const PLACE_ID = "ChIJPUUzaPCve0gRNIxGLjYTn_4"; // Maple Garden Skincare, Meditation & Wellbeing
 const CACHE_SECONDS = 3600; // reviews change rarely; avoids burning API quota per visitor
 
-export async function onRequestGet(context) {
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/api/google-reviews" && request.method === "GET") {
+      return handleGoogleReviews(request, env, ctx);
+    }
+
+    return env.ASSETS.fetch(request);
+  }
+};
+
+async function handleGoogleReviews(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(context.request.url, context.request);
+  const cacheKey = new Request(request.url, request);
 
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const apiKey = context.env.GOOGLE_PLACES_API_KEY;
+  const apiKey = env.GOOGLE_PLACES_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: "GOOGLE_PLACES_API_KEY not configured" }), {
       status: 500,
@@ -47,7 +56,7 @@ export async function onRequestGet(context) {
     }
   });
 
-  context.waitUntil(cache.put(cacheKey, response.clone()));
+  ctx.waitUntil(cache.put(cacheKey, response.clone()));
 
   return response;
 }
