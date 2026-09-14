@@ -8,7 +8,7 @@
 // redeploy: Deploy → Manage deployments → edit → New version (saving alone
 // does not update the live /exec URL that contact.html posts to).
 //
-// Row layout in the sheet: Timestamp | Name | Email | Phone | Treatment | Message
+// Row layout in the sheet: Timestamp | Name | Email | Phone | Gender | Treatment | Message
 
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -22,11 +22,12 @@ function doPost(e) {
     // auto-convert the value to a number and strip a leading 0 or mangle it.
     sheet.getRange(row, 4).setNumberFormat('@');
 
-    sheet.getRange(row, 1, 1, 6).setValues([[
+    sheet.getRange(row, 1, 1, 7).setValues([[
       Utilities.formatDate(new Date(), 'Europe/London', 'dd/MM/yyyy HH:mm:ss'),
       p.Name || '',
       p.Email || '',
       p.Phone || '',
+      p.Gender || '',
       p.Treatment || '',
       p.Message || ''
     ]]);
@@ -38,6 +39,7 @@ function doPost(e) {
       body: 'Name: ' + (p.Name || '') + '\n' +
             'Email: ' + (p.Email || '') + '\n' +
             'Phone: ' + (p.Phone || '') + '\n' +
+            'Gender: ' + (p.Gender || '') + '\n' +
             'Treatment: ' + (p.Treatment || '') + '\n\n' +
             'Message:\n' + (p.Message || '')
     });

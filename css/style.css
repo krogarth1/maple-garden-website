@@ -817,6 +817,24 @@ section {
 }
 .field textarea { min-height: 130px; resize: vertical; }
 
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+.field .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+.field .radio-option input[type="radio"] {
+  width: auto;
+  padding: 0;
+}
+
 .form-note {
   font-size: 0.82rem;
   color: var(--ink-soft);
