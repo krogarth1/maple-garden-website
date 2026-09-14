@@ -155,57 +155,69 @@
         </div>
 
         <div class="form-panel">
-          <h2 style="margin-bottom:0.3em;">Send a Message</h2>
-          <p class="lede" style="margin-bottom:1.5em;">Tell us which treatment you&rsquo;re interested in and a few dates/times that suit you &mdash; we&rsquo;ll reply to confirm availability.</p>
+          <div id="form-success" hidden>
+            <h2 style="margin-bottom:0.3em;">Thank you!</h2>
+            <p class="lede">Your enquiry has been sent &mdash; we&rsquo;ll reply to confirm availability shortly.</p>
+          </div>
 
-          <form action="https://formsubmit.co/maplegardenwellbeing@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New enquiry from Maple Garden website">
-            <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div id="form-wrap">
+            <h2 style="margin-bottom:0.3em;">Send a Message</h2>
+            <p class="lede" style="margin-bottom:1.5em;">Tell us which treatment you&rsquo;re interested in and a few dates/times that suit you &mdash; we&rsquo;ll reply to confirm availability.</p>
 
-            <div class="field">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="Name" required>
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="Email" required>
-            </div>
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="Phone">
-            </div>
-            <div class="field">
-              <label for="treatment">Treatment of Interest</label>
-              <select id="treatment" name="Treatment">
-                <option>The Zen Experience</option>
-                <option>The Dreamy Head Experience</option>
-                <option>Reset &amp; Restore</option>
-                <option>1:1 Meditation</option>
-                <option>Full Body Massage</option>
-                <option>Luxury Massage</option>
-                <option>Back, Neck &amp; Shoulders Massage</option>
-                <option>Hot Stone Massage</option>
-                <option>Mindfulness Meditation &amp; Massage</option>
-                <option>Maple Garden Sleep Well Experience</option>
-                <option>Indian Head Massage</option>
-                <option>Pregnancy Massage</option>
-                <option>Dermaplaning</option>
-                <option>Chemical Peel Facial</option>
-                <option>Maple Garden Glow Facial</option>
-                <option>Express Facial</option>
-                <option>Hopi Ear Candling</option>
-                <option>Gift Voucher</option>
-                <option>Not sure &ndash; please advise</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="Message" placeholder="Preferred dates/times, and anything else we should know..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Enquiry</button>
-            <p class="form-note">A £20 non-refundable deposit is required to secure your booking. We&rsquo;ll be in touch to confirm your appointment and take payment.</p>
-          </form>
+            <form action="https://script.google.com/macros/s/AKfycbxH6djVr_KEB7ImtuMimp7PTrhGvmfgdL4LAFiNVX00KxjeKawfoggqAPgr5vUrMr5m/exec" method="POST">
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+              <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="Name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="Email" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="Phone">
+              </div>
+              <div class="field">
+                <label for="treatment">Treatment of Interest</label>
+                <select id="treatment" name="Treatment">
+                  <option>The Zen Experience</option>
+                  <option>The Dreamy Head Experience</option>
+                  <option>Reset &amp; Restore</option>
+                  <option>1:1 Meditation</option>
+                  <option>Full Body Massage</option>
+                  <option>Luxury Massage</option>
+                  <option>Back, Neck &amp; Shoulders Massage</option>
+                  <option>Hot Stone Massage</option>
+                  <option>Mindfulness Meditation &amp; Massage</option>
+                  <option>Maple Garden Sleep Well Experience</option>
+                  <option>Indian Head Massage</option>
+                  <option>Pregnancy Massage</option>
+                  <option>Dermaplaning</option>
+                  <option>Chemical Peel Facial</option>
+                  <option>Maple Garden Glow Facial</option>
+                  <option>Express Facial</option>
+                  <option>Hopi Ear Candling</option>
+                  <option>Gift Voucher</option>
+                  <option>Not sure &ndash; please advise</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="Message" placeholder="Preferred dates/times, and anything else we should know..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Enquiry</button>
+              <p class="form-note">A £20 non-refundable deposit is required to secure your booking. We&rsquo;ll be in touch to confirm your appointment and take payment.</p>
+            </form>
+          </div>
+
+          <script>
+            if (/(?:^|[?&])sent=1(?:&|$)/.test(location.search)) {
+              document.getElementById("form-wrap").hidden = true;
+              document.getElementById("form-success").hidden = false;
+            }
+          </script>
         </div>
 
       </div>
