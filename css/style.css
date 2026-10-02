@@ -672,6 +672,115 @@ section {
 }
 .carousel-dot.active::before { background: #fff; }
 
+/* Dots sitting on a light section rather than the sage panel */
+.carousel-dots.on-light .carousel-dot::before { background: rgba(63, 77, 58, 0.25); }
+.carousel-dots.on-light .carousel-dot.active::before { background: var(--sage-700); }
+
+/* ---------- Instagram feed ---------- */
+.ig-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.4em;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  color: var(--sage-900);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.ig-handle:hover { background: var(--sage-100); }
+.ig-handle svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+.ig-carousel {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.ig-viewport {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.ig-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.ig-post {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.ig-post-media {
+  position: relative;
+  display: block;
+  /* Instagram mixes square, portrait and landscape crops — a fixed ratio with
+     object-fit keeps every slide the same height so the track doesn't jump. */
+  aspect-ratio: 1 / 1;
+  background: var(--sage-100);
+}
+.ig-post-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ig-post-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--sage-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ig-post-play svg { width: 22px; height: 22px; margin-left: 2px; }
+
+.ig-post-body {
+  min-width: 0;
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+.ig-post-caption {
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.ig-post-date {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.ig-post-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--terracotta-dark);
+  text-decoration: none;
+}
+.ig-post-link:hover { text-decoration: underline; }
+.ig-post-link svg { width: 16px; height: 16px; }
+
+@media (max-width: 700px) {
+  .ig-post { grid-template-columns: 1fr; }
+  .ig-post-media { aspect-ratio: 4 / 3; }
+  .ig-post-body { padding: 24px 22px; }
+}
+
 /* ---------- Timeline (About) ---------- */
 .story-block {
   display: grid;
