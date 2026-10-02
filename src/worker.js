@@ -124,9 +124,9 @@ function trimFeed(data) {
     username: data.username || null,
     posts: posts.map((post) => {
       const sizes = post.sizes || {};
-      // Behold re-hosts the sizes images, so unlike Instagram's own signed
-      // mediaUrl they don't expire out from under our 6-hour cache. For video
-      // posts thumbnailUrl is the only field guaranteed to be a still image.
+      // Behold re-hosts the sizes images (stills of the cover frame for video
+      // posts too), so unlike Instagram's own signed mediaUrl and thumbnailUrl
+      // they don't expire out from under our 6-hour cache.
       const isVideo = post.mediaType === "VIDEO" || post.isReel;
       const fromSizes = pickSize(sizes, ["medium", "large", "small", "full"]);
       return {
@@ -137,8 +137,13 @@ function trimFeed(data) {
         mediaType: post.mediaType || "IMAGE",
         isReel: Boolean(post.isReel),
         altText: post.altText || "",
-        image: (isVideo ? post.thumbnailUrl || fromSizes : fromSizes || post.thumbnailUrl) || post.mediaUrl || null,
-        imageSmall: isVideo ? null : pickSize(sizes, ["small", "medium"])
+        image: fromSizes || post.thumbnailUrl || (isVideo ? null : post.mediaUrl) || null,
+        imageSmall: pickSize(sizes, ["small", "medium"]),
+        // For video posts mediaUrl is the MP4 on Instagram's CDN. It is signed
+        // and expires roughly a day and a half after Behold fetches it, but
+        // Behold refreshes daily, so it outlives our cache in normal running;
+        // the carousel falls back to the still image if it ever fails to load.
+        video: isVideo ? post.mediaUrl || null : null
       };
     })
   };

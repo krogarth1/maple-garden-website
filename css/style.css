@@ -744,6 +744,14 @@ section {
   justify-content: center;
 }
 .ig-post-play svg { width: 22px; height: 22px; margin-left: 2px; }
+.ig-post-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ig-post-media.is-playing .ig-post-play { display: none; }
 
 .ig-post-body {
   min-width: 0;

@@ -19,6 +19,12 @@
   var nextBtn = document.getElementById("ig-next");
   var current = 0;
   var timer = null;
+  var held = false; // hovered or focused: hold the current slide
+  var inView = true;
+  var SLIDE_MS = 7000;
+  var VIDEO_START_MS = 8000; // give up on a video that hasn't started by then
+  // Respect the OS "reduce motion" setting: video posts stay as still images.
+  var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -57,6 +63,12 @@
       '<article class="ig-post">' +
       '<a class="ig-post-media" href="' + escapeHtml(permalink) + '" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">' +
       '<img src="' + escapeHtml(post.image) + '"' + srcset + ' alt="' + escapeHtml(alt) + '" loading="lazy" decoding="async">' +
+      // The video sits over the still image and stays hidden until it is
+      // actually playing, so a slow or expired video just leaves the image.
+      // data-src rather than src: nothing downloads until the slide is shown.
+      (isVideo && post.video && !reduceMotion
+        ? '<video class="ig-post-video" data-src="' + escapeHtml(post.video) + '" muted playsinline preload="none" hidden></video>'
+        : "") +
       (isVideo
         ? '<span class="ig-post-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>'
         : "") +
@@ -87,14 +99,82 @@
     if (!count) return;
     current = (index + count) % count;
     updateCarousel();
+    restartAutoplay();
   }
 
   function nextSlide() { goTo(current + 1); }
   function prevSlide() { goTo(current - 1); }
 
+  function activeVideo() {
+    var slide = track.children[current];
+    return slide ? slide.querySelector("video:not([data-failed])") : null;
+  }
+
+  function failVideo(video) {
+    if (video.hasAttribute("data-failed")) return;
+    video.setAttribute("data-failed", "");
+    clearTimeout(video._startTimer);
+    video.pause();
+    video.hidden = true;
+    video.parentNode.classList.remove("is-playing");
+    video.removeAttribute("src");
+    if (video === track.children[current].querySelector("video")) restartAutoplay();
+  }
+
+  function playVideo(video) {
+    if (!video.getAttribute("src")) {
+      video.src = video.getAttribute("data-src");
+      video.muted = true; // required for autoplay; set as a property to be sure
+      video.addEventListener("playing", function () {
+        clearTimeout(video._startTimer);
+        video.hidden = false;
+        video.parentNode.classList.add("is-playing");
+      });
+      video.addEventListener("error", function () { failVideo(video); });
+      video.addEventListener("ended", function () {
+        // Move on once the clip finishes, unless the visitor is holding this slide.
+        if (held || track.children.length < 2) {
+          video.currentTime = 0;
+          video.play();
+        } else {
+          nextSlide();
+        }
+      });
+    }
+    if (video.paused) {
+      clearTimeout(video._startTimer);
+      video._startTimer = setTimeout(function () { failVideo(video); }, VIDEO_START_MS);
+      var played = video.play();
+      if (played && played.catch) {
+        played.catch(function (err) {
+          // AbortError just means we paused it again before it started.
+          if (err && err.name !== "AbortError") failVideo(video);
+        });
+      }
+    }
+  }
+
+  // Decides what happens on the current slide: a video post plays and advances
+  // when it ends; anything else gets the usual timed advance.
   function restartAutoplay() {
-    if (timer) clearInterval(timer);
-    timer = setInterval(nextSlide, 7000);
+    clearTimeout(timer);
+    timer = null;
+
+    var active = activeVideo();
+    var videos = track.querySelectorAll("video");
+    for (var i = 0; i < videos.length; i++) {
+      var v = videos[i];
+      if (v === active && inView) continue;
+      clearTimeout(v._startTimer);
+      if (!v.paused) v.pause();
+      if (v !== active && v.currentTime) v.currentTime = 0;
+    }
+
+    if (active) {
+      if (inView) playVideo(active);
+      return;
+    }
+    if (!held && track.children.length > 1) timer = setTimeout(nextSlide, SLIDE_MS);
   }
 
   function initCarousel() {
@@ -112,7 +192,6 @@
         (function (idx) {
           dot.addEventListener("click", function () {
             goTo(idx);
-            restartAutoplay();
           });
         })(i);
         dotsWrap.appendChild(dot);
@@ -125,19 +204,32 @@
     if (dotsWrap) dotsWrap.hidden = singleSlide;
 
     updateCarousel();
-    if (!singleSlide) restartAutoplay();
+    restartAutoplay();
   }
 
-  if (prevBtn) prevBtn.addEventListener("click", function () { prevSlide(); restartAutoplay(); });
-  if (nextBtn) nextBtn.addEventListener("click", function () { nextSlide(); restartAutoplay(); });
+  if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+  if (nextBtn) nextBtn.addEventListener("click", nextSlide);
 
-  carousel.addEventListener("mouseenter", function () { if (timer) clearInterval(timer); });
-  carousel.addEventListener("mouseleave", restartAutoplay);
-  carousel.addEventListener("focusin", function () { if (timer) clearInterval(timer); });
-  carousel.addEventListener("focusout", restartAutoplay);
+  function hold(on) {
+    held = on;
+    restartAutoplay();
+  }
+  carousel.addEventListener("mouseenter", function () { hold(true); });
+  carousel.addEventListener("mouseleave", function () { hold(false); });
+  carousel.addEventListener("focusin", function () { hold(true); });
+  carousel.addEventListener("focusout", function () { hold(false); });
+
+  // Only play video while the carousel is on screen, so it isn't using
+  // mobile data for a section nobody is looking at.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+      restartAutoplay();
+    }, { threshold: 0.25 }).observe(carousel);
+  }
   carousel.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowLeft") { prevSlide(); restartAutoplay(); }
-    if (e.key === "ArrowRight") { nextSlide(); restartAutoplay(); }
+    if (e.key === "ArrowLeft") prevSlide();
+    if (e.key === "ArrowRight") nextSlide();
   });
 
   initCarousel();
@@ -158,7 +250,7 @@
       var slides = (feed.posts || []).slice(0, MAX_POSTS).map(postSlide).filter(Boolean);
       if (!slides.length) return;
 
-      if (timer) clearInterval(timer);
+      clearTimeout(timer);
       track.innerHTML = slides.join("");
       initCarousel();
     })
