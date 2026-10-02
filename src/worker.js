@@ -77,7 +77,14 @@ async function handleInstagram(request, env, ctx) {
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const feedId = env.BEHOLD_FEED_ID;
+  // Accepts either the bare feed ID or the full https://feeds.behold.so/<ID>
+  // URL Behold displays; the ID is the last path segment either way.
+  const feedId = (env.BEHOLD_FEED_ID || "")
+    .trim()
+    .replace(/[?#].*$/, "")
+    .replace(/\/+$/, "")
+    .split("/")
+    .pop();
   if (!feedId) {
     return new Response(JSON.stringify({ error: "BEHOLD_FEED_ID not configured" }), {
       status: 500,
