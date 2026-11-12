@@ -8,6 +8,7 @@ Plain static HTML/CSS/JS site, plus one small Cloudflare Worker route for proxyi
 index.html                 Home
 treatments-services.html   Full treatment menu & prices
 about.html                 Andrea's story & qualifications
+faq.html                   Frequently asked questions (native <details> accordions, no JS)
 contact.html                Contact details + booking enquiry form
 404.html                   Custom not-found page
 css/style.css               All styling (sage/cream/terracotta palette)
@@ -67,4 +68,4 @@ GitHub Pages was used for the initial build only, before the custom domain and C
 
 ## Editing content
 
-Everything is plain HTML — open any `.html` file in a text editor and edit directly. Treatment prices/descriptions live in `treatments-services.html` inside `<div class="treatment-item">` blocks; update both the visible text and the matching entry in the JSON-LD block on `index.html` if a *named* service changes significantly.
+Everything is plain HTML — open any `.html` file in a text editor and edit directly. Treatment prices/descriptions live in `treatments-services.html` inside `<div class="treatment-item">` blocks; update both the visible text and the matching entry in the JSON-LD block on `index.html` if a *named* service changes significantly. `faq.html` repeats some treatment durations, the deposit/cancellation policy and the opening hours, so check it when any of those change.

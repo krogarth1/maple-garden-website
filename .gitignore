@@ -2,3 +2,4 @@ node_modules/
 images/raw/
 .claude/
 .lighthouseci/
+.playwright-mcp/
